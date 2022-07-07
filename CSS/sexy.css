@@ -2,6 +2,10 @@ h1 {
     text-align: center;
 }
 
+h3 {
+    color: #0000ff;
+}
+
 body {
     background: #fdfdfd;
 }
