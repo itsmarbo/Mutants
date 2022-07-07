@@ -3,7 +3,7 @@ h1 {
 }
 
 h3 {
-    color: #0000ff;
+    color: #0d6efd;
 }
 
 body {
@@ -32,12 +32,7 @@ body {
     border-color: #959595;
 }
 
-.secundario.instrucciones {
-    text-align: justify;
-    vertical-align: middle;
-}
-
-.instrucciones p {
+.instrucciones {
     text-align: justify;
 }
 

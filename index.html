@@ -46,42 +46,70 @@
             <div class="row">
                 <div class="col-lg-6 col-12">
                     <div class="container">
-                        <h3>HOW TO USE THIS APPLICATION</h3>
-                        <div class="instrucciones">
-                            <p>
-                                Just insert a mutation indicating the position followed by the new aminoacid separated by a "." 
-                                <br>
-                                New aminoacids can be indicated in 1 or 3 letter code
-                                <br>
-                                FULL-LENGTH PROTEIN IS CONSIDERED, i.e., the first aminoacid
-                            </p>
-                        </div>
+                        <h3>How to ...</h3>
+                        <p class="instrucciones">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas rhoncus libero eget quam consectetur condimentum. Sed euismod congue ligula eu ornare. Fusce nec sagittis magna. Cras lacus augue, venenatis sit amet lacus eu, ultricies tincidunt nisi. Donec at felis sed neque semper luctus. Fusce placerat turpis sed justo condimentum, non blandit velit eleifend. Morbi venenatis ultrices massa non fringilla. Fusce lectus sem, posuere et consectetur quis, tristique eu neque. Proin pulvinar erat ac varius maximus.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
-                    <div class="container">
-                        <h3>DATA INPUT</h3>
-                        <div class="aminoacid">
-                            <form action="/aa" method="GET">
-                                <div class="mb-3">
-                                    <label for="aminoacidInput" class="form-label">Amino acid</label>
-                                    <input type="text" class="form-control" id="aminoacidInput" aria-describedby="aaInput">
+                    <div class="row">
+                        <h3>Input</h3>
+                        <div class="col-6 selector">
+                            <div class="container">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="aaRadio" checked>
+                                    <label class="form-check-label" for="aaRadio">
+                                    <b>Amino Acid</b> Mutation
+                                    </label>
                                 </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary boton" type="button">Submit</button>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="dnaRadio">
+                                    <label class="form-check-label" for="dnaRadio">
+                                    <b>DNA</b> Mutation
+                                    </label>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                        <div class="dna">
-                            <form action="/dna" method="GET">
-                                <div class="mb-3">
-                                    <label for="dnaInput" class="form-label">DNA</label>
-                                    <input type="text" class="form-control" id="dnaInput" aria-describedby="dInput">
-                                </div>
+                        <div class="col-6 aa">
+                            <div class="container">
                                 <div class="col-12">
-                                    <button class="btn btn-primary boton" type="button">Submit</button>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text" id="aaInput">Mutation Location</span>
+                                        <input type="text" class="form-control" aria-label="Number of AA" aria-describedby="aaInput">
+                                    </div>
+                                    <div class="dropdown">
+                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="aaOptions" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Choose AA
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="aaOptions">
+                                            <li><a class="dropdown-item" href="#">M</a></li>
+                                            <li><a class="dropdown-item" href="#">A</a></li>
+                                            <li><a class="dropdown-item" href="#">R</a></li>
+                                            <li><a class="dropdown-item" href="#">L</a></li>
+                                            <li><a class="dropdown-item" href="#">E</a></li>
+                                            <li><a class="dropdown-item" href="#">N</a></li>
+                                            <li><a class="dropdown-item" href="#">E</a></li>
+                                            <li><a class="dropdown-item" href="#">I</a></li>
+                                            <li><a class="dropdown-item" href="#">L</a></li>
+                                            <li><a class="dropdown-item" href="#">O</a></li>
+                                            <li><a class="dropdown-item" href="#">V</a></li>
+                                            <li><a class="dropdown-item" href="#">E</a></li>
+                                            <li><a class="dropdown-item" href="#">Y</a></li>
+                                            <li><a class="dropdown-item" href="#">O</a></li>
+                                            <li><a class="dropdown-item" href="#">U</a></li>
+                                            <li><a class="dropdown-item" href="#">!</a></li>
+                                            <li><a class="dropdown-item" href="#">A</a></li>
+                                            <li><a class="dropdown-item" href="#">L</a></li>
+                                            <li><a class="dropdown-item" href="#">W</a></li>
+                                            <li><a class="dropdown-item" href="#">A</a></li>
+                                            <li><a class="dropdown-item" href="#">Y</a></li>
+                                            <li><a class="dropdown-item" href="#">S</a></li>
+                                        </ul>
+                                    </div>
+                                    <button class="btn btn-primary" type="button">Button</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
