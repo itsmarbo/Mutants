@@ -1,0 +1,34 @@
+h1 {
+    text-align: center;
+}
+
+body {
+    background: #fdfdfd;
+}
+
+.subtitle {
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.principal {
+    margin-top: 5%;
+}
+
+.secundario {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background: #FFFFFF;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #959595;
+}
+
+.secundario p {
+    text-align: justify;
+}
+
+.boton {
+    width: 100%;
+}
