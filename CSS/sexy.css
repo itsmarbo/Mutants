@@ -13,6 +13,9 @@ body {
 
 .principal {
     margin-top: 5%;
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 .secundario {
@@ -25,7 +28,12 @@ body {
     border-color: #959595;
 }
 
-.secundario p {
+.secundario.instrucciones {
+    text-align: justify;
+    vertical-align: middle;
+}
+
+.instrucciones p {
     text-align: justify;
 }
 
