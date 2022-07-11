@@ -1,10 +1,8 @@
-from flask import Flask
 import os
-from flask import send_from_directory
-from flask import render_template
 import numpy as np
 from sklearn import linear_model
 from matplotlib import pyplot as plt
+from flask import Flask, send_from_directory, render_template, request
 
 app = Flask(__name__)
 
@@ -39,5 +37,39 @@ def compute(data):
     plt.savefig("static/barras.png")
     plt.cla()
 
-    # Render page
-    return render_template('view.html', resultado=sum(temp2))
+@app.route("/data")
+def data():
+        return render_template('data.html')
+
+@app.route("/model", methods=["GET"])
+def model():
+    print("Let's start ...")
+    if request.method == "GET":
+        print("I am a GET request!")
+        print(request.args)
+        tempX = request.args.get("dataX").split(",")
+        tempX = [float(i) for i in tempX]
+        tempY = request.args.get("dataY").split(",")
+        tempY = [float(i) for i in tempY]
+        x = np.array(list(range(len(tempX))))
+        X = np.expand_dims(x, 1)
+        y = np.array(tempY)
+
+        # Linear model
+        reg = linear_model.LinearRegression()
+        reg.fit(X, y)
+        m = reg.coef_[0]
+        b = reg.intercept_
+        yn = [m*x + b for x in X]
+
+        # Plot the data
+        plt.title(f"y = {m:.4} x + {b:.4}")
+        plt.plot(x, y, "r.")
+        plt.plot(x, yn, "b-")
+        plt.savefig("static/barras.png")
+        plt.cla()
+
+        # Render page
+        return render_template('view.html', resultado=sum(tempX))
+    else:
+        return "<h1>Wrong method!</h1>"
