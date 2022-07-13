@@ -13,39 +13,40 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet" />
     <link href="CSS/sexy.css" rel="stylesheet" />
+    <script src="https://unpkg.com/vue@3"></script>
 </head>
 
 <body>
-    <!-- Barra de navegacion -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">MutaGen Kv7.2</a> <!-- Nombre -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span> <!-- Hamburguesa -->
-          </button>
-          <div class="collapse navbar-collapse" id="navbarToggler">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!-- Opciones -->
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-    </nav>
-    
-    <div class="container principal">
-        <!-- Titulo principal -->
-        <h1>MutaGen Kv7.2</h1>
-        <p class="subtitle">A free machine learning web service to predict pathogenicity of missense variants in Kv7.2 channels</p>
+    <div id="app">
+        <!-- Barra de navegacion -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#">MutaGen Kv7.2</a> <!-- Nombre -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> <!-- Hamburguesa -->
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!-- Opciones -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+        
+        <div class="container principal">
+            <!-- Titulo principal -->
+            <h1>MutaGen Kv7.2</h1>
+            <p class="subtitle">A free machine learning web service to predict pathogenicity of missense variants in Kv7.2 channels</p>
 
-        <hr />
+            <hr />
 
-        <div class="container secundario">
-            <div class="row">
-                <div class="col-lg-6 col-12">
+            <div class="container secundario">
+                <div class="col-12">
                     <div class="container"> <!-- Descripcion de la aplicacion -->
                         <h3>How to ...</h3>
                         <p class="instrucciones">
@@ -53,295 +54,74 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-6 col-12">
-                    <div class="row">
-                        <h3>Input Mutation</h3> <!-- Parametros para el modelo -->
-                        <div class="col-12 selector">
-                            <div class="container">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="aaRadio" checked>
-                                    <label class="form-check-label" for="aaRadio">
-                                        <span class="fa-solid fa-barcode"></span>
-                                        <b>Amino Acid</b>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="dnaRadio">
-                                    <label class="form-check-label" for="dnaRadio">
-                                        <span class="fa-solid fa-dna"></span>
-                                        <b>DNA</b>
-                                    </label>
+                <h3>Input Mutation</h3> <!-- Parametros para el modelo -->
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <div class="row">
+                            <div class="col-12 selector">
+                                <div class="container">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="aaRadio" checked>
+                                        <label class="form-check-label" for="aaRadio">
+                                            <span class="fa-solid fa-barcode"></span>
+                                            <b>Amino Acid</b>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="dnaRadio">
+                                        <label class="form-check-label" for="dnaRadio">
+                                            <span class="fa-solid fa-dna"></span>
+                                            <b>DNA</b>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 aa">
-                            <div class="container">
-                                <div class="col-12">
-                                    <div class="container secuencia">
-                                        <div class="sequence">
-                                            <span class="aaCode">M</span>
-                                            <span class="aaCode">S</span>
-                                            <span class="aaCode">Y</span>
-                                            <span class="aaCode">Y</span>
-                                            <span class="aaCode">H</span>
-                                            <span class="aaCode">H</span>
-                                            <span class="aaCode">H</span>
-                                            <span class="aaCode">H</span>
-                                            <span class="aaCode">H</span>
-                                            <span class="aaCode">H</span>
-                                            <span class="aaCode">D</span>
-                                            <span class="aaCode">Y</span>
-                                            <span class="aaCode">D</span>
-                                            <span class="aaCode">I</span>
-                                            <span class="aaCode">P</span>
-                                            <span class="aaCode">T</span>
-                                            <span class="aaCode">T</span>
-                                            <span class="aaCode">E</span>
-                                            <span class="aaCode">N</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">Y</span>
-                                            <span class="aaCode">F</span>
-                                            <span class="aaCode">Q</span>
-                                            <span class="aaCode">G</span>
-                                            <span class="aaCode">A</span>
-                                            <span class="aaCode">M</span>
-                                            <span class="aaCode">G</span>
-                                            <span class="aaCode">I</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">G</span>
-                                            <span class="aaCode">S</span>
-                                            <span class="aaCode">G</span>
-                                            <span class="aaCode">Q</span>
-                                            <span class="aaCode">K</span>
-                                            <span class="aaCode">H</span>
-                                            <span class="aaCode">F</span>
-                                            <span class="aaCode">E</span>
-                                            <span class="aaCode">K</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">N</span>
-                                            <span class="aaCode">P</span>
-                                            <span class="aaCode">A</span>
-                                            <span class="aaCode">A</span>
-                                            <span class="aaCode">G</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">I</span>
-                                            <span class="aaCode">Q</span>
-                                            <span class="aaCode">S</span>
-                                            <span class="aaCode">A</span>
-                                            <span class="aaCode">W</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">F</span>
-                                            <span class="aaCode">Y</span>
-                                            <span class="aaCode">A</span>
-                                            <span class="aaCode">T</span>
-                                            <span class="aaCode">N</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">S</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">T</span>
-                                            <span class="aaCode">D</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">H</span>
-                                            <span class="aaCode">S</span>
-                                            <span class="aaCode">T</span>
-                                            <span class="aaCode">W</span>
-                                            <span class="aaCode">Q</span>
-                                            <span class="aaCode">Y</span>
-                                            <span class="aaCode">Y</span>
-                                            <span class="aaCode">E</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">T</span>
-                                            <span class="aaCode">V</span>
-                                            <span class="aaCode">T</span>
-                                            <span class="aaCode">V</span>
-                                            <span class="aaCode">P</span>
-                                            <span class="aaCode">M</span>
-                                            <span class="aaCode">Y</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">G</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">E</span>
-                                            <span class="aaCode">D</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">T</span>
-                                            <span class="aaCode">P</span>
-                                            <span class="aaCode">G</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">K</span>
-                                            <span class="aaCode">V</span>
-                                            <span class="aaCode">S</span>
-                                            <span class="aaCode">I</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">A</span>
-                                            <span class="aaCode">V</span>
-                                            <span class="aaCode">C</span>
-                                            <span class="aaCode">V</span>
-                                            <span class="aaCode">M</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">F</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">V</span>
-                                            <span class="aaCode">S</span>
-                                            <span class="aaCode">K</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">K</span>
-                                            <span class="aaCode">F</span>
-                                            <span class="aaCode">K</span>
-                                            <span class="aaCode">E</span>
-                                            <span class="aaCode">S</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">R</span>
-                                            <span class="aaCode">L</span>
-                                            <span class="aaCode">D</span>
+                            <div class="col-12 aa">
+                                <div class="container">
+                                    <div class="col-12">
+                                        <div class="container secuencia">
+                                            <span class="aaCode" v-for="(item, index) in aaSequence" :id="index" :class="[ aa == index ? 'highlight' : 'blocklight' ]">{{item}}</span>
+                                        </div>        
+                                        <div class="slider">
+                                            <label for="slideForAA" class="form-label">Select Amino Acid</label>
+                                            <input type="range" class="form-range" min="0" max="114" id="slideForAA" v-model="aa">
                                         </div>
-                                    </div>
-                                </div>
-                                <h3>
-                                    DNA Sequence
-                                    <small class="text-muted"> Human KCNQ2-CaM</small>
-                                </h3>
-                                <div class="seq DNA">
-                                    <div class="container-fluid">
-                                        <div class="seq DNA">
-                                            <div class="container secuencia">
-                                                <div class="sequence DNA">
-                                                    <span class="DNAcode">ATGGTGCAGAAGTCGCGCAACGGCG 25
-                                                        GCGTATACCCCGGCCCGAGCGGGGA 50
-                                                        GAAGAAGCTGAAGGTGGGCTTCGTG 75
-                                                        GGGCTGGACCCCGGCGCGCCCGACT 100
-                                                        CCACCCGGGACGGGGCGCTGCTGAT 125
-                                                        CGCCGGCTCCGAGGCCCCCAAGCGC 150
-                                                        GGCAGCATCCTCAGCAAACCTCGCG 175
-                                                        CGGGCGGCGCGGGCGCCGGGAAGCC 200
-                                                        CCCCAAGCGCAACGCCTTCTACCGC 225
-                                                        AAGCTGCAGAATTTCCTCTACAACG 250
-                                                        TGCTGGAGCGGCCGCGCGGCTGGGC 275
-                                                        GTTCATCTACCACGCCTACGTGTTC 300
-                                                        CTCCTGGTTTTCTCCTGCCTCGTGC 325
-                                                        TGTCTGTGTTTTCCACCATCAAGGA 350
-                                                        GTATGAGAAGAGCTCGGAGGGGGCC 375
-                                                        CTCTACATCCTGGAAATCGTGACTA 400
-                                                        TCGTGGTGTTTGGCGTGGAGTACTT 425
-                                                        CGTGCGGATCTGGGCCGCAGGCTGC 450
-                                                        TGCTGCCGGTACCGTGGCTGGAGGG 475
-                                                        GGCGGCTCAAGTTTGCCCGGAAACC 500
-                                                        GTTCTGTGTGATTGACATCATGGTG 525
-                                                        CTCATCGCCTCCATTGCGGTGCTGG 550
-                                                        CCGCCGGCTCCCAGGGCAACGTCTT 575
-                                                        TGCCACATCTGCGCTCCGGAGCCTG 600
-                                                        CGCTTCCTGCAGATTCTGCGGATGA 625
-                                                        TCCGCATGGACCGGCGGGGAGGCAC 650
-                                                        CTGGAAGCTG                660</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>            
-                                    <div class="slider">
-                                        <label for="slideForAA" class="form-label">Select Amino Acid</label>
-                                        <input type="range" class="form-range" min="0" max="115" id="slideForAA">
-                                    </div>
-                                    <div class="aacode">
-                                        <div class="btn-group" role="group" aria-label="Mutation selection">
-                                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                                <div class="row aaOpts">
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio1" title="Glycine">G</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio2" title="Alanine">A</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio3" title="Leucine">L</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio4" title="Methionine">M</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio5" title="Phenylalanine">F</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio6" title="Tryptophan">W</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio7" title="Lysine">K</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio8" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio8" title="Glutamine">Q</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio9" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio9" title="Glutamic Acid">E</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio10" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio10" title="Serine">S</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio11" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio11" title="Proline">P</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio12" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio12" title="Valine">V</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio13" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio13" title="Isoleucine">I</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio14" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio14" title="Cysteine">C</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio15" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio15" title="Tyrosine">Y</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio16" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio16" title="Histidine">H</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio17" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio17" title="Arginine">R</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio18" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio18" title="Asparagine">N</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio19" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio19" title="Aspartic Acid">D</label>
-                                                    </div>
-                                                    <div class="col aaOpt">
-                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio20" autocomplete="off">
-                                                        <label class="btn btn-outline-primary" for="btnradio20" title="Threonine">T</label>
+                                        <div class="aacode">
+                                            <div class="btn-group" role="group" aria-label="Mutation selection">
+                                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                    <div class="row aaOpts">
+                                                        <div class="col aaOpt" v-for="(value, name, index) in aaMut">
+                                                            <input type="radio" class="btn-check" name="btnradio" :id="'btnradio' + index" autocomplete="off">
+                                                            <label class="btn btn-outline-primary" :for="'btnradio' + index" :title="value[0]" v-on:click="onAA(name)">{{name}}</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
-                                    <button class="btn btn-primary" type="button">Run Model</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="row">
+                            <div class="col-md-6 col-12 img1">
+                                <img :src="'IMG/' + aaMut[aaSequence[aa]][1]" />
+                            </div>
+                            <div class="col-md-6 col-12 img2">
+                                <img :src="'IMG/' + image2" />
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-primary" type="button">Run Model</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <progress min="0" max="100" value="35"></progress>
+            <progress min="0" max="100" value="35"></progress>
+        </div>
     </div>
+    <script src="JS/action.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

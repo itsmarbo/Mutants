@@ -40,13 +40,26 @@ body {
     text-align: justify;
     background: #e2e2e2;
     border-radius: 5px;
-}
-
-.sequence {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     padding-top: 1em;
     padding-bottom: 1em;
+}
+
+.aaCode {
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    display: inline-block;
+}
+
+.highlight {
+    background-color: #700000;
+    color: #FFFFFF;
+}
+
+.blocklight {
+    background-color: none;
+    color: black;
 }
 
 .slider {
