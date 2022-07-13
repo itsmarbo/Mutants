@@ -84,14 +84,14 @@
                                         </div>        
                                         <div class="slider">
                                             <label for="slideForAA" class="form-label">Select Amino Acid</label>
-                                            <input type="range" class="form-range" min="0" max="114" id="slideForAA" v-model="aa">
+                                            <input type="range" class="form-range" min="0" max="114" id="slideForAA" v-model="aa" :disabled="isDisabled">
                                         </div>
                                         <div class="aacode">
                                             <div class="btn-group" role="group" aria-label="Mutation selection">
                                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                                     <div class="row aaOpts">
                                                         <div class="col aaOpt" v-for="(value, name, index) in aaMut">
-                                                            <input type="radio" class="btn-check" name="btnradio" :id="'btnradio' + index" autocomplete="off">
+                                                            <input type="radio" class="btn-check" name="btnradio" :id="'btnradio' + index" autocomplete="off" :disabled="isDisabled">
                                                             <label class="btn btn-outline-primary" :for="'btnradio' + index" :title="value[0]" v-on:click="onAA(name)">{{name}}</label>
                                                         </div>
                                                     </div>
@@ -105,15 +105,30 @@
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="row">
-                            <div class="col-md-6 col-12 img1">
-                                <img :src="'IMG/' + aaMut[aaSequence[aa]][1]" />
+                            <div class="col-md-6 col-12 bild">
+                                <div class="img">
+                                    <h4>Old AA</h4>
+                                    <img :src="'IMG/' + aaMut[aaSequence[aa]][1]" :alt="aaMut[aaSequence[aa]][0]">
+                                </div>
+                                <br>
+                                {{aaMut[aaSequence[aa]][0]}}
                             </div>
-                            <div class="col-md-6 col-12 img2">
-                                <img :src="'IMG/' + image2" />
+                            <div class="col-md-6 col-12 bild">
+                                <div class="img">
+                                    <h4>New AA</h4>
+                                    <img :src="'IMG/' + image2" :alt="aaMut[sel][0]">
+                                </div>
+                                <br>
+                                {{aaMut[sel][0]}}
                             </div>
                         </div>
                         <br>
-                        <button class="btn btn-primary" type="button">Run Model</button>
+                        <button class="btn btn-primary run" type="button" v-on:click="run()" :disabled="isDisabled">Run Model</button>
+                        <div v-if="third" class="container third">
+                            <div class="spinning">
+                                <img src="IMG/spinner.gif" alt="Just hold a little longer ...">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
