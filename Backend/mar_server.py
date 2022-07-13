@@ -6,13 +6,17 @@ from flask import Flask, send_from_directory, render_template, request
 
 app = Flask(__name__)
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 @app.route("/")
 def hello_world():
     return "<p>Hello, Marlene!</p>"
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+@app.route("/data")
+def data():
+        return render_template('data.html')
 
 @app.route("/<data>")
 def compute(data):
@@ -37,16 +41,10 @@ def compute(data):
     plt.savefig("static/barras.png")
     plt.cla()
 
-@app.route("/data")
-def data():
-        return render_template('data.html')
-
 @app.route("/model", methods=["GET"])
 def model():
-    print("Let's start ...")
     if request.method == "GET":
-        print("I am a GET request!")
-        print(request.args)
+        # Data pre-processing
         tempX = request.args.get("dataX").split(",")
         tempX = [float(i) for i in tempX]
         tempY = request.args.get("dataY").split(",")
