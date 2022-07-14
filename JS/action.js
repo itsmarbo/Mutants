@@ -29,11 +29,15 @@ const { createApp } = Vue
               },
         image1: "glycine.png",
         image2: "methionine.png",
+        mutCode: "",
         aa: 0,
         sel: "M"
       }
     },
     methods: {
+      updateAA() {
+        this.mutCode = "Mutation: " + this.aaSequence[this.aa] + (+this.aa + 1) + this.sel;
+      },
       onAA(nam) {
         this.image2 = this.aaMut[nam][1];
         this.sel = nam;

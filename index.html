@@ -42,67 +42,68 @@
             <!-- Titulo principal -->
             <h1>MutaGen Kv7.2</h1>
             <p class="subtitle">A free machine learning web service to predict pathogenicity of missense variants in Kv7.2 channels</p>
-
-            <hr />
-            
+            <hr>
             <div class="container secundario">
-                <div class="col-12">
-                    <div class="container"> <!-- Descripcion de la aplicacion -->
-                        <h3>How to ...</h3>
-                        <p class="instrucciones">
-                           To run the analysis you need to provide the mutation as follows:
-                         <p class="instruccionesS">Select</p>
-                         <p class="instrucciones">1. The letter of the inicial aminoacid</p>
-                         <p class="instrucciones">2. Number where the mutation takes place</p>  
-                         <p class="instrucciones">3. The letter of the final aminoacid</p> 
-
-                           Run the Model!
-                            
-                        </p>
+                <div class="accordion" id="accordionMutInstructions">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                How to ...
+                            </button>
+                        </h3>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionMutInstructions">
+                            <div class="accordion-body">
+                                <p class="instrucciones">
+                                    To run the analysis you need to provide the mutation as follows:
+                                    <ol>
+                                        <li>Select the letter of the inicial aminoacid using the slider</li>
+                                        <li>Check the number where the mutation takes place</li>
+                                        <li>Select the letter of the final aminoacid</li>
+                                        <li>Run the Model!</li>
+                                    </ol>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <h3>Input Mutation</h3> <!-- Parametros para el modelo -->
+                <div class="col-12 selector">
+                    <div class="container">
+                        <span class="inTitle">Input Mutation</span> <!-- Parametros para el modelo -->
+                        <!-- <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="aaRadio" checked>
+                            <label class="form-check-label" for="aaRadio">
+                                <span class="fa-solid fa-barcode"></span>
+                                <b> Amino Acid</b>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="dnaRadio">
+                            <label class="form-check-label" for="dnaRadio">
+                                <span class="fa-solid fa-dna"></span>
+                                <b> DNA</b>
+                            </label>
+                        </div> -->
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-6 col-12">
-                        <div class="row">
-                            <div class="col-12 selector">
-                                <div class="container">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="aaRadio" checked>
-                                        <label class="form-check-label" for="aaRadio">
-                                            <span class="fa-solid fa-barcode"></span>
-                                            <b>Amino Acid</b>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="dnaRadio">
-                                        <label class="form-check-label" for="dnaRadio">
-                                            <span class="fa-solid fa-dna"></span>
-                                            <b>DNA</b>
-                                        </label>
-                                    </div>
-                                </div>
+                        <div class="container aa">
+                            <h5>AA Sequence</h5>
+                            <div class="container secuencia">
+                                <span class="aaCode" v-for="(item, index) in aaSequence" :id="index" :class="[ aa == index ? 'highlight' : 'blocklight' ]">{{item}}</span>
+                            </div>        
+                            <div class="slider">
+                                <label for="slideForAA" class="form-label">Select Amino Acid:</label><span class="posIndi">&nbsp;&nbsp;[{{+aa + 1}}]</span>
+                                <input type="range" class="form-range" min="0" max="114" id="slideForAA" v-model="aa" :disabled="isDisabled" :change="updateAA()">
                             </div>
-                            <div class="col-12 aa">
-                                <div class="container">
-                                    <div class="col-12">
-                                        <div class="container secuencia">
-                                            <span class="aaCode" v-for="(item, index) in aaSequence" :id="index" :class="[ aa == index ? 'highlight' : 'blocklight' ]">{{item}}</span>
-                                        </div>        
-                                        <div class="slider">
-                                            <label for="slideForAA" class="form-label">Select Amino Acid</label>
-                                            <input type="range" class="form-range" min="0" max="114" id="slideForAA" v-model="aa" :disabled="isDisabled">
-                                        </div>
-                                        <div class="aacode">
-                                            <div class="btn-group" role="group" aria-label="Mutation selection">
-                                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                                    <div class="row aaOpts">
-                                                        <div class="col aaOpt" v-for="(value, name, index) in aaMut">
-                                                            <input type="radio" class="btn-check" name="btnradio" :id="'btnradio' + index" autocomplete="off" :disabled="isDisabled">
-                                                            <label class="btn btn-outline-primary" :for="'btnradio' + index" :title="value[0]" v-on:click="onAA(name)">{{name}}</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                            <h5>Replacement AA</h5>
+                            <div class="aacode">
+                                <div class="btn-group" role="group" aria-label="Mutation selection">
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                        <div class="row aaOpts">
+                                            <div class="col aaOpt" v-for="(value, name, index) in aaMut">
+                                                <input type="radio" class="btn-check" name="btnradio" :id="'btnradio' + index" autocomplete="off" :disabled="isDisabled">
+                                                <label class="btn btn-outline-primary" :for="'btnradio' + index" :title="value[0]" v-on:click="onAA(name)">{{name}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +115,7 @@
                         <div class="row">
                             <div class="col-md-6 col-12 bild">
                                 <div class="img">
-                                    <h4>Old AA</h4>
+                                    <h5>Old AA</h5>
                                     <img :src="'IMG/' + aaMut[aaSequence[aa]][1]" :alt="aaMut[aaSequence[aa]][0]">
                                 </div>
                                 <br>
@@ -122,13 +123,14 @@
                             </div>
                             <div class="col-md-6 col-12 bild">
                                 <div class="img">
-                                    <h4>New AA</h4>
+                                    <h5>New AA</h5>
                                     <img :src="'IMG/' + image2" :alt="aaMut[sel][0]">
                                 </div>
                                 <br>
                                 {{aaMut[sel][0]}}
                             </div>
                         </div>
+                        <input type="text" name="mutate" id="mutate" v-model="mutCode" disabled>
                         <br>
                         <button class="btn btn-primary run" type="button" v-on:click="run()" :disabled="isDisabled">Run Model</button>
                         <div v-if="third" class="container third">
@@ -139,8 +141,6 @@
                     </div>
                 </div>
             </div>
-
-            <progress min="0" max="100" value="35"></progress>
         </div>
     </div>
     <script src="JS/action.js"></script>
