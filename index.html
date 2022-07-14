@@ -87,7 +87,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-12">
-                        <div class="container aa">
+                        <div class="container">
                             <h5>AA Sequence</h5>
                             <div class="container secuencia">
                                 <span class="aaCode" v-for="(item, index) in aaSequence" :id="index" :class="[ aa == index ? 'highlight' : 'blocklight' ]">{{item}}</span>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="row">
-                            <div class="col-md-6 col-12 bild">
+                            <div class="col-6 bild">
                                 <div class="img">
                                     <h5>Old AA</h5>
                                     <img :src="'IMG/' + aaMut[aaSequence[aa]][1]" :alt="aaMut[aaSequence[aa]][0]">
@@ -121,7 +121,7 @@
                                 <br>
                                 {{aaMut[aaSequence[aa]][0]}}
                             </div>
-                            <div class="col-md-6 col-12 bild">
+                            <div class="col-6 bild">
                                 <div class="img">
                                     <h5>New AA</h5>
                                     <img :src="'IMG/' + image2" :alt="aaMut[sel][0]">
@@ -130,9 +130,19 @@
                                 {{aaMut[sel][0]}}
                             </div>
                         </div>
-                        <input type="text" name="mutate" id="mutate" v-model="mutCode" disabled>
-                        <br>
-                        <button class="btn btn-primary run" type="button" v-on:click="run()" :disabled="isDisabled">Run Model</button>
+                        <div class="textBased">
+                            <h5>Final</h5>
+                            <div class="row">
+                                <div class="col-6 description">
+                                    <span>Mutation:</span>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" name="mutate" id="mutate" v-model="mutCode" :disabled="isDisabled">
+                                </div>
+                            </div>
+                            <br>
+                            <button class="btn btn-primary run" type="button" v-on:click="run()" :disabled="isDisabled">Run Model</button>
+                        </div>
                         <div v-if="third" class="container third">
                             <div class="spinning">
                                 <img src="IMG/spinner.gif" alt="Just hold a little longer ...">
