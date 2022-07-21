@@ -27,6 +27,7 @@ const { createApp } = Vue
                 "D" : ["Aspartic Acid", "aspartic_acid.png"],
                 "T" : ["Threonine", "threonine.png"]
               },
+        imgs: {},
         image1: "glycine.png",
         image2: "methionine.png",
         mutCode: "",
@@ -41,7 +42,7 @@ const { createApp } = Vue
       onAA(nam) {
         this.image2 = this.aaMut[nam][1];
         this.sel = nam;
-        //this.mutCode = this.aaSequence[this.aa] + (+this.aa + 1) + nam;
+        this.mutCode = this.aaSequence[this.aa] + (+this.aa + 1) + nam;
       },
       run() {
         if ((this.mutCode.length >= 3) && (this.mutCode.length <= 5)) {
@@ -63,5 +64,11 @@ const { createApp } = Vue
         this.third = true;
         this.isDisabled = true;
       }
+    },
+    mounted () {
+      Object.keys(this.aaMut).forEach(element => {
+        this.imgs[element] = new Image();
+        this.imgs[element].src = "IMG/" + this.aaMut[element][1];
+      });
     }
   }).mount('#app')
