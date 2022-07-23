@@ -5,7 +5,7 @@ const { createApp } = Vue
         third: false,
         fourth: false,
         isDisabled: false,
-        aaSequence: ["M","S","Y","Y","H","H","H","H","H","H","D","Y","D","I","P","T","T","E","N","L","Y","F","Q","G","A","M","G","I","L","G","S","G","Q","K","H","F","E","K","R","R","N","P","A","A","G","L","I","Q","S","A","W","R","F","Y","A","T","N","L","S","R","T","D","L","H","S","T","W","Q","Y","Y","E","R","T","V","T","V","P","M","Y","R","G","L","E","D","L","T","P","G","L","K","V","S","I","R","A","V","C","V","M","R","F","L","V","S","K","R","K","F","K","E","S","L","R","L","D"],
+        aaSequence: [],
         aaMut: {"G" : ["Glycine", "glycine.png"],
                 "A" : ["Alanine", "alanine.png"],
                 "L" : ["Leucine", "leucine.png"],
@@ -32,7 +32,8 @@ const { createApp } = Vue
         image2: "methionine.png",
         mutCode: "",
         aa: 0,
-        sel: "M"
+        sel: "M",
+        endpoint: "http://127.0.0.1:5000/"
       }
     },
     methods: {
@@ -64,6 +65,14 @@ const { createApp } = Vue
         this.third = true;
         this.isDisabled = true;
       }
+    },
+    created () {
+      const getSequence = async () => {
+        await axios
+          .get(this.endpoint + "sequence")
+          .then(response => (this.aaSequence = response['data'].split("")));
+      }
+      getSequence();
     },
     mounted () {
       Object.keys(this.aaMut).forEach(element => {
