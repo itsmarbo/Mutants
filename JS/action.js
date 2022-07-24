@@ -2,10 +2,11 @@ const { createApp } = Vue
   createApp({
     data() {
       return {
+        primero: false,
         third: false,
         fourth: false,
         isDisabled: false,
-        aaSequence: [],
+        aaSequence: ["G"],
         aaMut: {"G" : ["Glycine", "glycine.png"],
                 "A" : ["Alanine", "alanine.png"],
                 "L" : ["Leucine", "leucine.png"],
@@ -66,11 +67,14 @@ const { createApp } = Vue
         this.isDisabled = true;
       }
     },
-    created () {
+    beforeMount () {
       const getSequence = async () => {
         await axios
           .get(this.endpoint + "sequence")
-          .then(response => (this.aaSequence = response['data'].split("")));
+          .then(response => {
+            this.aaSequence = response['data'].split("");
+            this.primero = true;
+          });
       }
       getSequence();
     },

@@ -38,7 +38,6 @@
             </div>
             </div>
         </nav>
-        
         <div class="container principal">
             <!-- Titulo principal -->
             <h1>MutaGen Kv7.2</h1>
@@ -70,32 +69,18 @@
                 <div class="col-12 selector">
                     <div class="container">
                         <span class="inTitle">Input Mutation</span> <!-- Parametros para el modelo -->
-                        <!-- <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="aaRadio" checked>
-                            <label class="form-check-label" for="aaRadio">
-                                <span class="fa-solid fa-barcode"></span>
-                                <b> Amino Acid</b>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="dnaRadio">
-                            <label class="form-check-label" for="dnaRadio">
-                                <span class="fa-solid fa-dna"></span>
-                                <b> DNA</b>
-                            </label>
-                        </div> -->
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="container">
                             <h5>AA Sequence</h5>
-                            <div class="container secuencia">
+                            <div class="container secuencia" v-if="primero">
                                 <span class="aaCode" v-for="(item, index) in aaSequence" :id="index" :class="[ aa == index ? 'highlight' : 'blocklight' ]">{{item}}</span>
                             </div>        
                             <div class="slider">
                                 <label for="slideForAA" class="form-label">Select Amino Acid:</label><span class="posIndi">&nbsp;&nbsp;[{{+aa + 1}}]</span>
-                                <input type="range" class="form-range" min="0" max="114" id="slideForAA" v-model="aa" :disabled="isDisabled" :change="updateAA()">
+                                <input type="range" class="form-range" min="0" :max="aaSequence.length" id="slideForAA" v-model="aa" :disabled="isDisabled" :change="updateAA()">
                             </div>
                             <h5>Replacement AA</h5>
                             <div class="aacode">
