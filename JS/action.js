@@ -53,6 +53,16 @@ const { createApp } = Vue
           if (Object.keys(this.aaMut).includes(primera) && Object.keys(this.aaMut).includes(ultima)) {
             var numero = this.mutCode.slice(1,-2);
             if ((+numero >= 1) && (+numero < this.aaSequence.length)) {
+              axios
+                .get(this.endpoint + "mutation", {
+                  params: {
+                    code: this.mutCode
+                  }
+                })
+                .then(response => {
+                  console.log(response);
+                  this.third = false;
+                })
               console.log("Genial!")
             } else {
               console.log("Error de numero");

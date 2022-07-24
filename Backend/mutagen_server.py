@@ -89,7 +89,7 @@ def sequence():
 # -----------------------------------------------------------------------------
 # Input:  [A traves de una solicitud web] El codigo de la mutacion
 # Output: [A traves de una respuesta web] El porcentaje de XXXXXX, la mutacion,
-#         y la YYYYYYY.
+#         la YYYYYYY, y si fue exitosa la prediccion.
 # -----------------------------------------------------------------------------
 @app.route('/mutation', methods=['GET'])
 def mutation():
@@ -98,13 +98,13 @@ def mutation():
             eval_code = mutator(request.args['code'])
             if eval_code[0]:
                 new_seq = eval_code[1]
-                return "Got it!"
+                return {"percent": 87, "code": request.args['code'], "something": 20, "model": True}
             else:
-                return "Error!"
+                return {"percent": 0, "code": request.args['code'], "something": 0, "model": False}
         else:
-            return "Error!"
+            return {"percent": 0, "code": request.args['code'], "something": 0, "model": False}
     else:
-        return "Error!"
+        return {"percent": 0, "code": request.args['code'], "something": 0, "model": False}
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -80,7 +80,7 @@
                             </div>        
                             <div class="slider">
                                 <label for="slideForAA" class="form-label">Select Amino Acid:</label><span class="posIndi">&nbsp;&nbsp;[{{+aa + 1}}]</span>
-                                <input type="range" class="form-range" min="0" :max="aaSequence.length" id="slideForAA" v-model="aa" :disabled="isDisabled" :change="updateAA()">
+                                <input type="range" class="form-range" min="0" :max="aaSequence.length - 1" id="slideForAA" v-model="aa" :disabled="isDisabled" :change="updateAA()">
                             </div>
                             <h5>Replacement AA</h5>
                             <div class="aacode">
