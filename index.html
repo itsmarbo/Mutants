@@ -11,10 +11,10 @@
         content="KCNQ2, epilepsy, variants, prediction, pathogenicity, machine learning, bioinformatics" />
     <link href="CSS/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="CSS/all.min.css" rel="stylesheet" />
-    <link href="CSS/sexy.css" rel="stylesheet" />
-    <script src="JS/axios.min.js"></script>
-    <script src="JS/vue.global.js"></script>
+    <link href="CSS/all.min.css" rel="stylesheet" /> <!-- Iconos de FontAwesome para embellecer -->
+    <link href="CSS/sexy.css" rel="stylesheet" /> <!-- CSS personalizado -->
+    <script src="JS/axios.min.js"></script> <!-- Framework para hacer solicitudes REST al backend -->
+    <script src="JS/vue.global.js"></script> <!-- Framework de JS para simplificar las acciones de la SPA -->
 </head>
 
 <body>
@@ -44,6 +44,7 @@
             <p class="subtitle">A free machine learning web service to predict pathogenicity of missense variants in Kv7.2 channels</p>
             <hr>
             <div class="container secundario">
+                <!-- Explicacion de funcionamiento -->
                 <div class="accordion" id="accordionMutInstructions">
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="headingOne">
@@ -68,21 +69,21 @@
                 </div>
                 <div class="col-12 selector">
                     <div class="container">
-                        <span class="inTitle">Input Mutation</span> <!-- Parametros para el modelo -->
+                        <span class="inTitle">Input Mutation</span> <!-- Igresar mutacion mediante ... -->
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="container">
-                            <h5>AA Sequence</h5>
+                            <h5>AA Sequence</h5> <!-- ... seleccion de AA en secuencia ... -->
                             <div class="container secuencia" v-if="primero">
                                 <span class="aaCode" v-for="(item, index) in aaSequence" :id="index" :class="[ aa == index ? 'highlight' : 'blocklight' ]">{{item}}</span>
                             </div>        
-                            <div class="slider">
+                            <div class="slider"> <!-- ... usando un slider, ... -->
                                 <label for="slideForAA" class="form-label">Select Amino Acid:</label><span class="posIndi">&nbsp;&nbsp;[{{+aa + 1}}]</span>
                                 <input type="range" class="form-range" min="0" :max="aaSequence.length - 1" id="slideForAA" v-model="aa" :disabled="isDisabled" :change="updateAA()">
                             </div>
-                            <h5>Replacement AA</h5>
+                            <h5>Replacement AA</h5> <!-- ... y seleccion del AA reemplazante utilizando botones. -->
                             <div class="aacode">
                                 <div class="btn-group" role="group" aria-label="Mutation selection">
                                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -98,6 +99,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-12">
+                        <!-- Mostrar imagenes tanto para el anterior AA, como para el nuevo. -->
                         <div class="row">
                             <div class="col-6 bild">
                                 <div class="img">
@@ -116,6 +118,7 @@
                                 {{aaMut[sel][0]}}
                             </div>
                         </div>
+                        <!-- Caja final con codigo de mutacion y boton para correr el modelo -->
                         <div class="textBased">
                             <h5>Final</h5>
                             <div class="row">
@@ -123,12 +126,13 @@
                                     <span>Mutation:</span>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" name="mutate" id="mutate" v-model="mutCode" disabled="true">
+                                    <input type="text" name="mutate" id="mutate" v-model="mutCode" disabled="true"> <!-- Codigo de mutacion -->
                                 </div>
                             </div>
                             <br>
-                            <button class="btn btn-primary run" type="button" v-on:click="run()" :disabled="isDisabled">Run Model</button>
+                            <button class="btn btn-primary run" type="button" v-on:click="run()" :disabled="isDisabled">Run Model</button> <!-- Boton para correr -->
                         </div>
+                        <!-- Spinner para indicar que se esta corriendo el modelo. -->
                         <div v-if="third" class="container third">
                             <div class="spinning">
                                 <img src="IMG/spinner.gif" alt="Just hold a little longer ...">
