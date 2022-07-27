@@ -71,7 +71,7 @@ encoding_dna = {"UUU": "F", "UCU": "S", "UAU": "Y", "UGU": "C",
 def ribosome(rna_seq):
     # Revisar si la secuencia es multiplo de 3, para saber si se puede
     # codificar segun codones de 3 nucleotidos
-    if rna_seq % 3 == 0:
+    if len(rna_seq) % 3 == 0:
         # Preparar una variable para almacenar el codon
         codon = ""
         # Preparar una lista para almacenar la secuencia de AAs
