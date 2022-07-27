@@ -1,6 +1,15 @@
+# To run the webserver in debug mode, please make sure to have the required
+# libraries specified in the repository's README.
+# Then, you may run the server by typing "python mutagen_server.py" in a
+# command line.
+
+# Libraries
 from flask import Flask, request, render_template
 from flask_cors import CORS
 
+# Constants in the program
+
+# Amino Acid sequence
 full_sequence = ("M","S","Y","Y","H","H","H","H","H","H","D","Y","D","I","P",
                 "T","T","E","N","L","Y","F","Q","G","A","M","G","I","L","G",
                 "S","G","Q","K","H","F","E","K","R","R","N","P","A","A","G",
@@ -10,6 +19,7 @@ full_sequence = ("M","S","Y","Y","H","H","H","H","H","H","D","Y","D","I","P",
                 "V","S","I","R","A","V","C","V","M","R","F","L","V","S","K",
                 "R","K","F","K","E","S","L","R","L","D")
 
+# Amino Acid dictionary with names
 amino_acids = {"G" : "Glycine",
                 "A" : "Alanine",
                 "L" : "Leucine",
@@ -29,8 +39,57 @@ amino_acids = {"G" : "Glycine",
                 "R" : "Arginine",
                 "N" : "Asparagine",
                 "D" : "Aspartic Acid",
-                "T" : "Threonine"
+                "T" : "Threonine",
+                "-" : "Stop"
               }
+
+# Codons to translate into Amino Acids
+encoding_dna = {"UUU": "F", "UCU": "S", "UAU": "Y", "UGU": "C",
+                "UUC": "F", "UCC": "S", "UAC": "Y", "UGC": "C",
+                "UUA": "L", "UCA": "S", "UAA": "-", "UGA": "-",
+                "UUG": "L", "UCG": "S", "UAG": "-", "UGG": "W",
+                "CUU": "L", "CCU": "P", "CAU": "H", "CGU": "R",
+                "CUC": "L", "CCC": "P", "CAC": "H", "CGC": "R",
+                "CUA": "L", "CCA": "P", "CAA": "Q", "CGA": "R",
+                "CUG": "L", "CCG": "P", "CAG": "Q", "CGG": "R",
+                "AUU": "I", "ACU": "T", "AAU": "N", "AGU": "S",
+                "AUC": "I", "ACC": "T", "AAC": "N", "AGC": "S",
+                "AUA": "I", "ACA": "T", "AAA": "K", "AGA": "R",
+                "AUG": "M", "ACG": "T", "AAG": "K", "AGG": "R",
+                "GUU": "V", "GCU": "A", "GAU": "D", "GGU": "G",
+                "GUC": "V", "GCC": "A", "GAC": "D", "GGC": "G",
+                "GUA": "V", "GCA": "A", "GAA": "E", "GGA": "G",
+                "GUG": "V", "GCG": "A", "GAG": "E", "GGG": "G"
+                }
+
+# -----------------------------------------------------------------------------
+# Funcion para codificar ARN en aminoacidos
+# -----------------------------------------------------------------------------
+# Input:  La secuencia de ARN como un string
+# Output: La secuencia de aminoacidos codificados por el ARN
+# -----------------------------------------------------------------------------
+def ribosome(rna_seq):
+    # Revisar si la secuencia es multiplo de 3, para saber si se puede
+    # codificar segun codones de 3 nucleotidos
+    if rna_seq % 3 == 0:
+        # Preparar una variable para almacenar el codon
+        codon = ""
+        # Preparar una lista para almacenar la secuencia de AAs
+        aa_seq = []
+        # Recorrer la secuencia de ARN cada 3 nucleotidos
+        for i in range(0, len(rna_seq), 3):
+            codon = rna_seq[i:i+3]  # Extraer el codon
+            try:
+                aa_seq.append(encoding_dna[codon]) # Agregar el AA a la lista
+            except IndexError as e: # Si el codon no existe (alguna letra mal)
+                print(e) # Desplegar error y explicar
+                print("One of the codons does not match any of the possible\
+                    RNA codons for protein encoding!")
+                print(f"Check the codon {rna_seq[i:i+3]} at position {i}.")
+                return [] # Devolver lista vacia
+        return aa_seq # Devolver lista de AAs
+    else:
+        return [] # Devolver lista vacia
 
 # -----------------------------------------------------------------------------
 # Funcion para devolver la secuencia con la mutacion especifica
@@ -65,13 +124,21 @@ def mutator(code):
     else:
         return [False, list(full_sequence)]
 
+# *****************************************************************************
+# Main program starts here!
+# *****************************************************************************
+
 # Aplicacion del servidor
 app = Flask(__name__)
+
+# Dandole capacidad al servidor de recibir solicitudes de otras fuentes que
+# no sean el. [cross-origin resource sharing]
 CORS(app)
 
+# Ruta de prueba para comprobar si el servidor esta corriendo bien.
 @app.route('/')
-def test():
-    return "First test."
+def droids():
+    return render_template("ntdylf.html")
 
 # -----------------------------------------------------------------------------
 # Funcion/Ruta para devolver la secuencia de aminoacidos
@@ -79,8 +146,8 @@ def test():
 # Input:  ---
 # Output: La secuencia de aminoacidos como un string.
 # -----------------------------------------------------------------------------
-@app.route('/sequence')
-def sequence():
+@app.route('/aminoacid')
+def aminoacid():
     secuencia = "".join(full_sequence)
     return secuencia
 

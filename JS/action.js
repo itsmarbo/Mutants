@@ -87,7 +87,7 @@ const { createApp } = Vue
       /* Solicitar al backend la secuencia de AAs */
       const getSequence = async () => {
         await axios
-          .get(this.endpoint + "sequence")
+          .get(this.endpoint + "aminoacid")
           .then(response => {
             this.aaSequence = response['data'].split("");
             this.primero = true;
