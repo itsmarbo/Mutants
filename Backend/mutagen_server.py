@@ -7,7 +7,17 @@
 from flask import Flask, request, render_template
 from flask_cors import CORS
 
-# Constants in the program
+# Constants in the program ----------------------------------------------------
+
+# RNA sequence
+full_rna_sequence = ""                  # Variable vacia para contener ARN
+with open("protein_dna.txt", "r") as f: # Abriendo el documento con el ARN
+    dna_sequence = f.read()             # Leer el string de ARN
+    for c in dna_sequence:              # Revisar letra por letra ...
+        if c == "T":
+            full_rna_sequence += "U"    # ... si hay T, reemplazar con U
+        else:
+            full_rna_sequence += c      # ... si no, solo seguir
 
 # Amino Acid sequence
 full_sequence = ("M","S","Y","Y","H","H","H","H","H","H","D","Y","D","I","P",
@@ -44,22 +54,22 @@ amino_acids = {"G" : "Glycine",
               }
 
 # Codons to translate into Amino Acids
-encoding_dna = {"UUU": "F", "UCU": "S", "UAU": "Y", "UGU": "C",
-                "UUC": "F", "UCC": "S", "UAC": "Y", "UGC": "C",
-                "UUA": "L", "UCA": "S", "UAA": "-", "UGA": "-",
-                "UUG": "L", "UCG": "S", "UAG": "-", "UGG": "W",
+encoding_dna = {"AUU": "I", "ACU": "T", "AAU": "N", "AGU": "S",
+                "AUC": "I", "ACC": "T", "AAC": "N", "AGC": "S",
+                "AUA": "I", "ACA": "T", "AAA": "K", "AGA": "R",
+                "AUG": "M", "ACG": "T", "AAG": "K", "AGG": "R",
                 "CUU": "L", "CCU": "P", "CAU": "H", "CGU": "R",
                 "CUC": "L", "CCC": "P", "CAC": "H", "CGC": "R",
                 "CUA": "L", "CCA": "P", "CAA": "Q", "CGA": "R",
                 "CUG": "L", "CCG": "P", "CAG": "Q", "CGG": "R",
-                "AUU": "I", "ACU": "T", "AAU": "N", "AGU": "S",
-                "AUC": "I", "ACC": "T", "AAC": "N", "AGC": "S",
-                "AUA": "I", "ACA": "T", "AAA": "K", "AGA": "R",
-                "AUG": "M", "ACG": "T", "AAG": "K", "AGG": "R",
                 "GUU": "V", "GCU": "A", "GAU": "D", "GGU": "G",
                 "GUC": "V", "GCC": "A", "GAC": "D", "GGC": "G",
                 "GUA": "V", "GCA": "A", "GAA": "E", "GGA": "G",
-                "GUG": "V", "GCG": "A", "GAG": "E", "GGG": "G"
+                "GUG": "V", "GCG": "A", "GAG": "E", "GGG": "G",
+                "UUU": "F", "UCU": "S", "UAU": "Y", "UGU": "C",
+                "UUC": "F", "UCC": "S", "UAC": "Y", "UGC": "C",
+                "UUA": "L", "UCA": "S", "UAA": "-", "UGA": "-",
+                "UUG": "L", "UCG": "S", "UAG": "-", "UGG": "W"
                 }
 
 # -----------------------------------------------------------------------------
