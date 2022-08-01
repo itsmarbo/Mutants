@@ -8,8 +8,10 @@ from flask import Flask, request, render_template
 from flask_cors import CORS
 
 # Constants in the program ----------------------------------------------------
+# https://www.ncbi.nlm.nih.gov/Structure/pdb/6FEH
 
 # RNA sequence
+# https://www.ncbi.nlm.nih.gov/nucleotide/XM_016188713.1 (1155-1301 match) ???
 full_rna_sequence = ""                  # Variable vacia para contener ARN
 with open("protein_dna.txt", "r") as f: # Abriendo el documento con el ARN
     dna_sequence = f.read()             # Leer el string de ARN
@@ -20,6 +22,7 @@ with open("protein_dna.txt", "r") as f: # Abriendo el documento con el ARN
             full_rna_sequence += c      # ... si no, solo seguir
 
 # Amino Acid sequence
+# https://www.ncbi.nlm.nih.gov/protein/6FEH_A
 full_sequence = ("M","S","Y","Y","H","H","H","H","H","H","D","Y","D","I","P",
                 "T","T","E","N","L","Y","F","Q","G","A","M","G","I","L","G",
                 "S","G","Q","K","H","F","E","K","R","R","N","P","A","A","G",
@@ -54,7 +57,7 @@ amino_acids = {"G" : "Glycine",
               }
 
 # Codons to translate into Amino Acids
-encoding_dna = {"AUU": "I", "ACU": "T", "AAU": "N", "AGU": "S",
+encoding_rna = {"AUU": "I", "ACU": "T", "AAU": "N", "AGU": "S",
                 "AUC": "I", "ACC": "T", "AAC": "N", "AGC": "S",
                 "AUA": "I", "ACA": "T", "AAA": "K", "AGA": "R",
                 "AUG": "M", "ACG": "T", "AAG": "K", "AGG": "R",
@@ -90,7 +93,7 @@ def ribosome(rna_seq):
         for i in range(0, len(rna_seq), 3):
             codon = rna_seq[i:i+3]  # Extraer el codon
             try:
-                aa_seq.append(encoding_dna[codon]) # Agregar el AA a la lista
+                aa_seq.append(encoding_rna[codon]) # Agregar el AA a la lista
             except IndexError as e: # Si el codon no existe (alguna letra mal)
                 print(e) # Desplegar error y explicar
                 print("One of the codons does not match any of the possible\
@@ -149,6 +152,17 @@ CORS(app)
 @app.route('/')
 def droids():
     return render_template("ntdylf.html")
+
+# -----------------------------------------------------------------------------
+# Funcion/Ruta para devolver la secuencia de ARN
+# -----------------------------------------------------------------------------
+# Input:  ---
+# Output: La secuencia de ARN como un string.
+# -----------------------------------------------------------------------------
+@app.route('/rna')
+def rna():
+    rna_secuencia = "".join(full_rna_sequence)
+    return rna_secuencia
 
 # -----------------------------------------------------------------------------
 # Funcion/Ruta para devolver la secuencia de aminoacidos

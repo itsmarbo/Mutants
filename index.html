@@ -38,6 +38,92 @@
             </div>
             </div>
         </nav>
+        <!-- Nueva Interfaz -->
+        <div class="container mainDiv">
+            <!-- Titulo principal -->
+            <h1>MutaGen Kv7.2</h1>
+            <p class="subtitle">A free machine learning web service to predict pathogenicity of missense variants in Kv7.2 channels</p>
+            <hr>
+            <div class="container infraDiv">
+                <!-- About -->
+                <div class="container aboutDiv"></div>
+                <!-- Mutacion -->
+                <div class="container mutationDiv">
+                    <!-- How To -->
+                    <div class="container howtoDiv">
+                        <div class="accordion" id="accordionMutInstructions">
+                            <div class="accordion-item">
+                                <h3 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        How to ...
+                                    </button>
+                                </h3>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionMutInstructions">
+                                    <div class="accordion-body">
+                                        <p class="instrucciones">
+                                            To run the analysis you need to provide the mutation as follows:
+                                            <ol>
+                                                <li>Select the letter of the inicial aminoacid using the slider</li>
+                                                <li>Check the number where the mutation takes place</li>
+                                                <li>Select the letter of the final aminoacid</li>
+                                                <li>Run the Model!</li>
+                                            </ol>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Select method -->
+                    <div class="container col-12 selector">
+                        <span class="inTitle">Input Mutation</span> <!-- Igresar mutacion mediante ... -->
+                    </div>
+                    <!-- AA -->
+                    <div class="container aaDiv">
+                        <div class="row">
+                            <div class="container col-lg-5 col-12">
+                                <h5>AA Sequence</h5> <!-- ... seleccion de AA en secuencia ... -->
+                                <div class="container secuencia" v-if="primero">
+                                    <span class="aaCode" v-for="(item, index) in aaSequence" :id="index" :class="[ aa == index ? 'highlight' : 'blocklight' ]">{{item}}</span>
+                                </div>
+                            </div>
+                            <div class="container col-lg-2 col-12">
+                                <div class="slider"> <!-- ... usando un slider, ... -->
+                                    <label for="slideForAA" class="form-label">Select Amino Acid:</label><span class="posIndi">&nbsp;&nbsp;[{{+aa + 1}}]</span>
+                                    <input type="range" class="form-range" min="0" :max="aaSequence.length - 1" id="slideForAA" v-model="aa" :disabled="isDisabled" :change="updateAA()">
+                                </div>
+                            </div>
+                            <div class="container col-lg-5 col-12">
+                                <h5>Replacement AA</h5> <!-- ... y seleccion del AA reemplazante utilizando botones. -->
+                                <div class="aacode">
+                                    <div class="btn-group" role="group" aria-label="Mutation selection">
+                                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                            <div class="row aaOpts">
+                                                <div class="col aaOpt" v-for="(value, name, index) in aaMut">
+                                                    <input type="radio" class="btn-check" name="btnradio" :id="'btnradio' + index" autocomplete="off" :disabled="isDisabled">
+                                                    <label class="btn btn-outline-primary" :for="'btnradio' + index" :title="value[0]" v-on:click="onAA(name)">{{name}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+                    <!-- ADN -->
+                    <div class="container dnaDiv"></div>
+                    <!-- Spinner -->
+                    <div class="container spinnerDiv"></div>
+                    <!-- Resultados -->
+                    <div class="container resultsDiv"></div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- Antigua Interfaz -->
         <div class="container principal">
             <!-- Titulo principal -->
             <h1>MutaGen Kv7.2</h1>
