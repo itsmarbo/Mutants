@@ -11,7 +11,7 @@
         content="KCNQ2, epilepsy, variants, prediction, pathogenicity, machine learning, bioinformatics" />
     <link href="CSS/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="CSS/all.min.css" rel="stylesheet" /> <!-- Iconos de FontAwesome para embellecer -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet" /> <!-- Iconos de FontAwesome para embellecer -->
     <link href="CSS/sexy.css" rel="stylesheet" /> <!-- CSS personalizado -->
     <script src="JS/axios.min.js"></script> <!-- Framework para hacer solicitudes REST al backend -->
     <script src="JS/vue.global.js"></script> <!-- Framework de JS para simplificar las acciones de la SPA -->
@@ -22,7 +22,7 @@
         <!-- Barra de navegacion -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-            <a class="navbar-brand" href="#">MutaGen Kv7.2</a> <!-- Nombre -->
+            <a class="navbar-brand" href="#"> MutaGen Kv7.2</a> <!-- Nombre -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span> <!-- Hamburguesa -->
             </button>
@@ -38,7 +38,6 @@
             </div>
             </div>
         </nav>
-        <!-- Nueva Interfaz -->
         <div class="container mainDiv">
             <!-- Titulo principal -->
             <h1>MutaGen Kv7.2</h1>
@@ -55,7 +54,7 @@
                             <div class="accordion-item">
                                 <h3 class="accordion-header" id="headingOne">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                        How to ...
+                                        <span class="fa-solid fa-circle-info"></span>&nbsp;&nbsp;How to ... 
                                     </button>
                                 </h3>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionMutInstructions">
@@ -63,8 +62,8 @@
                                         <p class="instrucciones">
                                             To run the analysis you need to provide the mutation as follows:
                                             <ol>
-                                                <li>Select the letter of the amino acid to be mutated, using the slider</li>
-                                                <li>Select the new mutated amino acid, using the buttons</li>
+                                                <li>Select the letter of the amino acid / nucleotide to be mutated, using the slider</li>
+                                                <li>Select the new mutated amino acid / nucleotide, using the buttons</li>
                                                 <li>Check whether the mutation in the new sequence is what you need</li>
                                                 <li>Click on: Run the Model!</li>
                                                 <li>Wait for the results</li>
@@ -78,9 +77,22 @@
                     <!-- Select method -->
                     <div class="container col-12 selector">
                         <span class="inTitle">Input Mutation</span> <!-- Igresar mutacion mediante ... -->
+                        <div class="row">
+                            <div class="col-xl-1 col-lg-2 col-md-2 col-sm-3 col-4">
+                                DNA&nbsp;<span class="fa-solid fa-dna"></span>
+                            </div>
+                            <div class="col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked v-model="seqMode" v-on:click="reset()">
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
+                                Amino Acids&nbsp;<span class="fa-solid fa-barcode"></span>
+                            </div>
+                        </div>
                     </div>
                     <!-- AA -->
-                    <div class="container aaDiv">
+                    <div class="container aaDiv" v-if="seqMode">
                         <!-- Area de secuencias -->
                         <div class="row mainRow">
                             <!-- Secuencia de AA antigua y AA seleccionado -->
@@ -111,7 +123,7 @@
                                     </div>
                                     <div class="row g-0 seqRow">
                                         <div class="col-md-4 bild">
-                                            <img :src="'IMG/' + aaMut[aaPostSequence[aa]][1]" class="img-fluid rounded-start" :alt="aaMut[sel][0]">
+                                            <img :src="'IMG/' + aaMut[aaPostSequence[aa]][1]" class="img-fluid rounded-start" :alt="aaMut[aaSel][0]">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="container secuencia" v-if="primero">
@@ -128,7 +140,7 @@
                             <div class="container col-lg-5 col-12">
                                 <div class="slider">
                                     <label for="slideForAA" class="form-label">Select Amino Acid:</label><span class="posIndi">&nbsp;&nbsp;[{{+aa + 1}}]</span>
-                                    <input type="range" class="form-range" min="0" :max="aaSequence.length - 1" id="slideForAA" v-model="aa" :disabled="isDisabled || slideDisabled" :change="updateAA()">
+                                    <input type="range" class="form-range" min="0" :max="aaSequence.length - 1" id="slideForAA" v-model="aa" :disabled="aaIsDisabled || aaSlideDisabled" :change="updateAA()">
                                 </div>
                             </div>
                             <!-- Mutation selector -->
@@ -136,7 +148,7 @@
                                 <div class="btn-group" role="group" aria-label="Mutation selection">
                                     <div class="row aaOpts">
                                         <div class="col aaOpt" v-for="(value, name, index) in aaMut">
-                                            <input type="radio" class="btn-check" name="btnradio" :id="'btnradio' + index" autocomplete="off" :disabled="isDisabled">
+                                            <input type="radio" class="btn-check" name="btnradio" :id="'btnradio' + index" autocomplete="off" :disabled="aaIsDisabled">
                                             <label class="btn btn-outline-primary" :for="'btnradio' + index" :title="value[0]" v-on:click="onAA(name)">{{name}}</label>
                                         </div>
                                     </div>
@@ -152,16 +164,95 @@
                                     <span>Mutation:</span>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" name="mutate" id="mutate" v-model="mutCode" disabled="true"> <!-- Codigo de mutacion -->
+                                    <input type="text" name="mutate" id="mutate" v-model="aaMutCode" disabled="true"> <!-- Codigo de mutacion -->
                                 </div>
                             </div>
                             <br>
-                            <button class="btn btn-primary run" type="button" v-on:click="run()" :disabled="isDisabled">Run Model</button> <!-- Boton para correr -->
+                            <button class="btn btn-primary run" type="button" v-on:click="aaRun()" :disabled="aaIsDisabled">Run Model</button> <!-- Boton para correr -->
                             </div>
                         </div>
                     </div>
                     <!-- ADN -->
-                    <div class="container dnaDiv"></div>
+                    <div class="container aaDiv" v-if="!seqMode">
+                        <!-- Area de secuencias -->
+                        <div class="row mainRow">
+                            <!-- Secuencia de ADN antigua y ADN seleccionado -->
+                            <div class="container col-lg-6 col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <b>Old DNA Sequence</b><br> <!-- Old: Titulo y seleccion -->
+                                        <span class="posIndi">[{{dnaMut[dnaSequence[dna]][0]}}]</span>
+                                    </div>
+                                    <div class="row g-0 seqRow">
+                                        <div class="col-md-8">
+                                            <div class="container secuencia" v-if="segundo">
+                                                <span class="aaCode" v-for="(item, index) in dnaSequence" :id="index" :class="[ dna == index ? 'redlight' : 'blocklight' ]">{{item}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 bild">
+                                            <img :src="'IMG/' + dnaMut[dnaSequence[dna]][1]" class="img-fluid rounded-end" :alt="dnaMut[dnaSequence[dna]][0]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Secuencia de ADN nueva y ADN seleccionado -->
+                            <div class="container col-lg-6 col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <b>New DNA Sequence</b><br> <!-- New: Titulo y seleccion -->
+                                        <span class="posIndi">[{{dnaMut[dnaPostSequence[dna]][0]}}]</span>
+                                    </div>
+                                    <div class="row g-0 seqRow">
+                                        <div class="col-md-4 bild">
+                                            <img :src="'IMG/' + dnaMut[dnaPostSequence[dna]][1]" class="img-fluid rounded-start" :alt="dnaMut[dnaSel][0]">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="container secuencia" v-if="segundo">
+                                                <span class="aaCode" v-for="(item2, index2) in dnaPostSequence" :id="'new' + index2" :class="[ dna == index2 ? 'highlight' : 'blocklight' ]">{{item2}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Area de seleccion -->
+                        <div class="row container editAA">
+                            <!-- Slider -->
+                            <div class="container col-lg-5 col-12">
+                                <div class="slider">
+                                    <label for="slideForAA" class="form-label">Select Nucleotide:</label><span class="posIndi">&nbsp;&nbsp;[{{+dna + 1}}]</span>
+                                    <input type="range" class="form-range" min="0" :max="dnaSequence.length - 1" id="slideForAA" v-model="dna" :disabled="dnaIsDisabled || dnaSlideDisabled" :change="updateDNA()">
+                                </div>
+                            </div>
+                            <!-- Mutation selector -->
+                            <div class="container col-lg-5 col-12 aacode">
+                                <div class="btn-group" role="group" aria-label="Mutation selection">
+                                    <div class="row aaOpts">
+                                        <div class="col aaOpt" v-for="(value, name, index) in dnaMut">
+                                            <input type="radio" class="btn-check" name="btnradio" :id="'btnradio' + index" autocomplete="off" :disabled="dnaIsDisabled">
+                                            <label class="btn btn-outline-primary" :for="'btnradio' + index" :title="value[0]" v-on:click="onDNA(name)">{{name}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Area de codigo final -->
+                        <div class="row justify-content-center">
+                            <div class="col-lg-4 col-12 textBased">
+                                <h5>Final</h5>
+                            <div class="row">
+                                <div class="col-6 description">
+                                    <span>Mutation:</span>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" name="mutate" id="mutate" v-model="dnaMutCode" disabled="true"> <!-- Codigo de mutacion -->
+                                </div>
+                            </div>
+                            <br>
+                            <button class="btn btn-primary run" type="button" v-on:click="dnaRun()" :disabled="dnaIsDisabled">Run Model</button> <!-- Boton para correr -->
+                            </div>
+                        </div>
+                    </div>
                     <!-- Spinner -->
                     <div class="container spinnerDiv"></div>
                     <!-- Resultados -->
