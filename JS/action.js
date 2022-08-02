@@ -7,7 +7,9 @@ const { createApp } = Vue
         third: false, // Control para mostrar el spinner
         fourth: false, // Control para mostrar resultados
         isDisabled: false, // Para desactivar los controles para seleccionar AA
-        aaSequence: ["G"], // Secuencia de AA de la proteina (se carga con Axios al iniciar la pagina)
+        slideDisabled: false, // Para desactivar el slider unicamente
+        aaSequence: ["M"], // Secuencia de AA de la proteina (se carga con Axios al iniciar la pagina)
+        aaPostSequence: ["M"], // Secuencia de AA de la proteina post mutacion
         // Objeto con AAs: llaves - letra, valor - nombre e imagen
         aaMut: {"G" : ["Glycine", "glycine.png"],
                 "A" : ["Alanine", "alanine.png"],
@@ -31,7 +33,7 @@ const { createApp } = Vue
                 "T" : ["Threonine", "threonine.png"]
               },
         imgs: {}, // Objeto para pre-cargar las imagenes
-        image1: "glycine.png", // Imagen 1
+        image1: "methionine.png", // Imagen 1
         image2: "methionine.png", // Imagen 2
         mutCode: "", // Codigo de la mutacion
         aa: 0, // Posicion del AA a mutar
@@ -42,20 +44,38 @@ const { createApp } = Vue
     methods: {
       /* Metodo para actualizar el codigo de mutacion al mover el slider */
       updateAA() {
-        this.mutCode = this.aaSequence[this.aa] + (+this.aa + 1) + this.sel;
+        this.mutCode = this.aaSequence[this.aa] + (+this.aa + 1) + this.aaPostSequence[this.aa];
       },
       /* Metodo para actualizar el codigo de mutacion al seleccionar el AA para reemplazar */
       onAA(nam) {
         this.image2 = this.aaMut[nam][1];
         this.sel = nam;
         this.mutCode = this.aaSequence[this.aa] + (+this.aa + 1) + nam;
+        this.aaPostSequence[this.aa] = nam;
+        // Check if both sequences are different
+        var difference = 0;
+        for (var i = 0; i < this.aaSequence.length; i++) {
+          if (this.aaSequence[i] != this.aaPostSequence[i]) {
+            difference = difference + 1;
+          }
+        }
+        if (difference != 0) {
+          this.slideDisabled = true;
+          this.aaMut[nam][2] = true;
+        } else {
+          this.slideDisabled = false;
+          Object.keys(this.aaMut).forEach(key => {
+            this.aaMut[key][2] = false;
+          });
+        }
+        console.log(this.aaMut[nam])
       },
       /* Metodo para pedirle la evaluacion de la nueva secuencia segun el modelo al backend */
       run() {
         if ((this.mutCode.length >= 3) && (this.mutCode.length <= 5)) {
           var primera = this.mutCode.slice(0,1);
           var ultima = this.mutCode.slice(-1);
-          if (Object.keys(this.aaMut).includes(primera) && Object.keys(this.aaMut).includes(ultima)) {
+          if (Object.keys(this.aaMut).includes(primera) && Object.keys(this.aaMut).includes(ultima) && (primera != ultima)) {
             var numero = this.mutCode.slice(1,-2);
             if ((+numero >= 1) && (+numero < this.aaSequence.length)) {
               axios
@@ -68,6 +88,8 @@ const { createApp } = Vue
                   console.log(response);
                   this.third = false;
                 })
+              this.third = true;
+              this.isDisabled = true;
               console.log("Genial!")
             } else {
               console.log("Error de numero");
@@ -78,8 +100,6 @@ const { createApp } = Vue
         } else {
           console.log("Error de largo");
         }
-        this.third = true;
-        this.isDisabled = true;
       }
     },
     /* !!!!! ANTES DE MONTAR VUE.JS EN LA PAGINA !!!!! */
@@ -90,6 +110,7 @@ const { createApp } = Vue
           .get(this.endpoint + "aminoacid")
           .then(response => {
             this.aaSequence = response['data'].split("");
+            this.aaPostSequence = response['data'].split("");
             this.primero = true;
           });
       }

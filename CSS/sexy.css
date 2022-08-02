@@ -12,6 +12,11 @@
         margin-left: 10%;
         margin-right: 10%;
     }
+
+    .bild img {
+        width: calc(100% * 0.5);
+        height: fit-content;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -22,8 +27,20 @@
     }
 }
 
+@media (max-width: 992px) {
+    .mainRow {
+        display: inline-block;
+    }
+}
+
 body {
     background: #fdfdfd;
+}
+
+.card {
+    height: 100%;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .accordion {
@@ -86,11 +103,19 @@ h1 {
 .secuencia {
     text-align: justify;
     background: #e2e2e2;
-    border-radius: 5px;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding: 1.5em;
+    margin: 1px;
+    height: 99%;
+}
+
+.seqRow {
+    height: 100%;
+}
+
+.posIndi {
+    color: #959595;
 }
 
 .aaCode {
@@ -102,6 +127,11 @@ h1 {
 .highlight {
     background-color:#0d6efd;
     color: #FFFFFF;
+}
+
+.redlight {
+    background-color: #fff;
+    color: #f00;
 }
 
 .blocklight {
@@ -119,10 +149,6 @@ h1 {
     margin-bottom: 1em;
 }
 
-.posIndi {
-    color: #959595;
-}
-
 .aaOpts {
     text-align: left !important;
 }
@@ -138,17 +164,16 @@ h1 {
 .bild {
     text-align: center;
     vertical-align: middle;
+    height: 30vh;
 }
 
-.img {
-    display: inline-block;
-    text-align: center;
-    width: 110px;
-    height: 275px;
+.bild img {
+    width: calc(30vh * 0.5238);
 }
 
-.img img {
-    width: inherit;
+.editAA {
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
 .textBased {
