@@ -99,41 +99,19 @@ h1 {
     padding-bottom: 1em;
 }
 
-.secuencia {
-    text-align: justify;
-    background: #e2e2e2;
-    border-radius: 5px;
-}
-
-.sequence {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-
-.slider {
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-
 .selector {
     margin-top: 1em;
     margin-bottom: 1em;
 }
 
-<<<<<<< Updated upstream
 .posIndi {
     color: #959595;
 }
 
-=======
->>>>>>> Stashed changes
 .aaOpts {
     text-align: left;
 }
 
-<<<<<<< Updated upstream
 .aaOpt {
     padding: 0.2em;
 }
@@ -189,8 +167,4 @@ h1 {
 
 .spinning img {
     width: 100%;
-=======
-.aaOpt label {
-    width: 2.5em;
->>>>>>> Stashed changes
 }
